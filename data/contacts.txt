@@ -1,7 +1,6 @@
 Name | Phone number
----------------
 Jack Blank | 1231231234
 Jane Doe | 2342342345
-Sam Space | 3453453456
-bill | 738490459
-charlie | 3849084
+Sam sammy | 3453453456
+bill billington| 738490459
+charlie charles| 3849084

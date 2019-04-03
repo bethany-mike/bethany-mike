@@ -63,10 +63,26 @@ public class ContactsApplication {
                 //method2
                 break;
             case 3:
+                System.out.println("Enter name to search for");
+                String userContact = scanner.nextLine();
+
+                allContacts = contactBook.returnAllContacts(dataFile);
+
+                System.out.println(userContact);
+
+                for (String testContact : allContacts) {
+                    System.out.println(testContact);
+                }
+
+                Contact anotherContact = contactBook.returnContactObject(allContacts,userContact);
+
+                System.out.println(anotherContact.getName());
+                System.out.println(anotherContact.getPhoneNumber());
 
                 //method3
                 break;
             case 4:
+                // delete existing contact
                 //method4
                 break;
             case 5:

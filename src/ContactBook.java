@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -27,5 +28,26 @@ public class ContactBook {
             System.out.println(littleGuy);
         }
         return returnList;
+    }
+
+
+    public Contact returnContactObject(List<String> allContacts, String userContact){
+        List<Contact> contactIterator = new ArrayList<>();
+        Contact returnContact = new Contact();
+
+        for(String contact : allContacts) {
+            String[] splitContacts = contact.split("\\|");
+            Contact newContact = new Contact(splitContacts[0],splitContacts[1]);
+            contactIterator.add(newContact);
+        }
+
+
+        for(Contact contact: contactIterator){
+            if(contact.getName().equals(userContact)){
+                returnContact = contact;
+            }
+        }
+
+            return returnContact;
     }
 }
