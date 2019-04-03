@@ -83,6 +83,15 @@ public class ContactsApplication {
                 break;
             case 4:
                 // delete existing contact
+                System.out.println("Provide a contact name to delete.");
+                String nameToDelete = scanner.nextLine();
+                allContacts = contactBook.returnAllContacts(dataFile);
+                List<String> newContactList = contactBook.assassinateContact(allContacts, nameToDelete);
+                try {
+                    Files.write(dataFile, newContactList);
+                } catch(IOException thisGuy) {
+                    System.out.println(thisGuy);
+                }
                 //method4
                 break;
             case 5:

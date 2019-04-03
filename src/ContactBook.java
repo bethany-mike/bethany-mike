@@ -50,4 +50,16 @@ public class ContactBook {
 
             return returnContact;
     }
+
+    public List<String> assassinateContact(List<String> allContacts, String contactToDelete) {
+        String foundContact = "";
+        for (String contact : allContacts) {
+            if (contact.contains(contactToDelete)) {
+                foundContact = contact;
+            }
+        }
+        System.out.println(foundContact);
+        allContacts.remove(foundContact);
+        return allContacts;
+    }
 }
