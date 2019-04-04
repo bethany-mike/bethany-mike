@@ -27,76 +27,69 @@ public class ContactsApplication {
                 Files.createFile(dataFile);
             }
 
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             System.out.println("It's broked");
         }
 
         ContactBook contactBook = new ContactBook();
         Scanner scanner = new Scanner(System.in);
-        //do-while loop start
-        System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n" +
-                "5. Exit.\nEnter an option (1, 2, 3, 4 or 5):");
-        int userInput = scanner.nextInt();
-        scanner.nextLine();
-        switch (userInput) {
-            case 1:
-                //method1
-                List<String> allContacts = contactBook.returnAllContacts(dataFile);
-                for (String contact : allContacts) {
-                    System.out.println(contact);
-                }
-                break;
-            case 2:
-                System.out.println("Enter contact name.");
-                String contactName = scanner.nextLine();
-                System.out.println("Enter contact phone number.");
-                String contactNumber = scanner.nextLine();
-                try {
-                    Files.write(
-                            Paths.get(directory, filename),
-                            Arrays.asList(contactName + " | " + contactNumber), // list with one item
-                            StandardOpenOption.APPEND
-                    );
-                } catch(IOException thisGuy) {
-                    System.out.println(thisGuy);
-                }
-                //method2
-                break;
-            case 3:
-                System.out.println("Enter name to search for");
-                String userContact = scanner.nextLine();
+        String userContinue;
 
-                allContacts = contactBook.returnAllContacts(dataFile);
-
-                System.out.println(userContact);
-
-                for (String testContact : allContacts) {
-                    System.out.println(testContact);
-                }
-
-                Contact anotherContact = contactBook.returnContactObject(allContacts,userContact);
-
-                System.out.println(anotherContact.getName());
-                System.out.println(anotherContact.getPhoneNumber());
-
-                //method3
-                break;
-            case 4:
-                // delete existing contact
-                System.out.println("Provide a contact name to delete.");
-                String nameToDelete = scanner.nextLine();
-                allContacts = contactBook.returnAllContacts(dataFile);
-                List<String> newContactList = contactBook.assassinateContact(allContacts, nameToDelete);
-                try {
-                    Files.write(dataFile, newContactList);
-                } catch(IOException thisGuy) {
-                    System.out.println(thisGuy);
-                }
-                //method4
-                break;
-            case 5:
-                System.exit(0);
-        }
-
+        do {
+            System.out.println("1. View contacts.\n2. Add a new contact.\n3. Search a contact by name.\n4. Delete an existing contact.\n" +
+                    "5. Exit.\nEnter an option (1, 2, 3, 4 or 5):");
+            int userInput = scanner.nextInt();
+            scanner.nextLine();
+            switch (userInput) {
+                case 1:
+                    List<String> allContacts = contactBook.returnAllContacts(dataFile);
+                    for (String contact : allContacts) {
+                        System.out.println(contact);
+                    }
+                    break;
+                case 2:
+                    System.out.println("Enter contact name.");
+                    String contactName = scanner.nextLine();
+                    System.out.println("Enter contact phone number.");
+                    String contactNumber = scanner.nextLine();
+                    try {
+                        Files.write(
+                                Paths.get(directory, filename),
+                                Arrays.asList(contactName + " | " + contactNumber),
+                                StandardOpenOption.APPEND
+                        );
+                    } catch (IOException thisGuy) {
+                        System.out.println(thisGuy);
+                    }
+                    break;
+                case 3:
+                    System.out.println("Enter name to search for.");
+                    String userContact = scanner.nextLine();
+                    allContacts = contactBook.returnAllContacts(dataFile);
+                    Contact anotherContact = contactBook.returnContactObject(allContacts, userContact);
+                    if (anotherContact.getName() == null) {
+                        System.out.println("No contact found.");
+                    } else {
+                        System.out.println(anotherContact.getName());
+                        System.out.println(anotherContact.getPhoneNumber());
+                    }
+                    break;
+                case 4:
+                    System.out.println("Provide a contact name to delete.");
+                    String nameToDelete = scanner.nextLine();
+                    allContacts = contactBook.returnAllContacts(dataFile);
+                    List<String> newContactList = contactBook.assassinateContact(allContacts, nameToDelete);
+                    try {
+                        Files.write(dataFile, newContactList);
+                    } catch (IOException thisGuy) {
+                        System.out.println(thisGuy);
+                    }
+                    break;
+                case 5:
+                    System.exit(0);
+            }
+            System.out.println("Would you like to do something else? (y/n)");
+            userContinue = scanner.nextLine();
+        } while (userContinue.equals("y"));
     }
 }
